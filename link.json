@@ -1,6 +1,4 @@
 {
   "enabled": true,
-  "redirects": {
-    "44-2": "shbets.mobi",
-  }
+  "redirects": {}
 }
