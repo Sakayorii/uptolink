@@ -1,6 +1,7 @@
 {
   "enabled": true,
   "redirects": {
-    "151-2": "motorolarange.nl"
+    "151-2": "motorolarange.nl",
+    "155-2": "shipler.in"
   }
 }
