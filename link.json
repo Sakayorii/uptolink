@@ -1,4 +1,6 @@
 {
   "enabled": true,
-  "redirects": {}
+  "redirects": {
+    "151-2": "motorolarange.nl"
+  }
 }
